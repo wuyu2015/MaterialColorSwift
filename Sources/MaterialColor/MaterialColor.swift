@@ -20,7 +20,7 @@ public enum MaterialColor {
         return PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public static func color(color1: MaterialColor.PlatformColor, color2: MaterialColor.PlatformColor, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
+    public static func color(_ color1: MaterialColor.PlatformColor, _ color2: MaterialColor.PlatformColor, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
         let ratio2 = max(0.0, min(1.0, ratio))
         let ratio1 = 1.0 - ratio2
         
@@ -41,7 +41,7 @@ public enum MaterialColor {
         return MaterialColor.PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public static func color(hex1: UInt32, hex2: UInt32, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
+    public static func color(_ hex1: UInt32, _ hex2: UInt32, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
         let ratio2 = max(0.0, min(1.0, ratio))
         let ratio1 = 1.0 - ratio2
         
@@ -60,7 +60,7 @@ public enum MaterialColor {
         return MaterialColor.PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public static func color(tint: MaterialColor.Tint, level: Int = 500, palette: MaterialColor.Palette = .tailwind) -> MaterialColor.PlatformColor {
+    public static func color(_ tint: MaterialColor.Tint, level: Int = 500, palette: MaterialColor.Palette = .tailwind) -> MaterialColor.PlatformColor {
         if level < 0 || level > 1000 {
             fatalError("Invalid color level \(level)")
         }
@@ -110,7 +110,7 @@ public enum MaterialColor {
                 lightHex = hexValues[10]
                 ratio = (remainder - 50) / 50
             }
-            return color(hex1: lightHex, hex2: darkHex, ratio: ratio)
+            return color(lightHex, darkHex, ratio: ratio)
         }
     }
     
