@@ -25,7 +25,14 @@ You can use these colors in your Swift code like this:
 ```swift
 import MaterialColor
 
+// We love Tailwind.
 let myColor = MaterialColor.Tailwind.pink500
+
+// Or make a new color based on Tailwind.
+let let zinc250 = MaterialColor.color(.zinc, level: 250)
+
+// Or blend two colors to create a new one.
+let grape = MaterialColor.color(.red, .blue, ratio: 0.75)
 ```
 
 ## Contributing
@@ -61,7 +68,14 @@ MaterialColorSwift 是一个山寨了 [Material Design](https://m2.material.io/d
 ```swift
 import MaterialColor
 
+// 我爱 Tailwind。
 let myColor = MaterialColor.Tailwind.pink500
+
+// 或者根据 Tailwind 创建新的颜色。
+let let zinc350 = MaterialColor.color(.zinc, level: 350)
+
+// 或者混合 2 种颜色生成新的颜色。
+let grape = MaterialColor.color(.red, .blue, ratio: 0.75)
 ```
 
 ##  贡献
