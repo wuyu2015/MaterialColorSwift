@@ -20,47 +20,47 @@ public enum MaterialColor {
         return PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public static func color(_ light: MaterialColor.PlatformColor, _ dark: MaterialColor.PlatformColor, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
-        let ratio = max(0.0, min(1.0, ratio))
-        let lightRatio = 1.0 - ratio
+    public static func color(color1: MaterialColor.PlatformColor, color2: MaterialColor.PlatformColor, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
+        let ratio2 = max(0.0, min(1.0, ratio))
+        let ratio1 = 1.0 - ratio2
         
-        let lightComponents = light.cgColor.components ?? [0, 0, 0]
-        let lightRed = lightComponents[0]
-        let lightGreen = lightComponents[1]
-        let lightBlue = lightComponents[2]
+        let color1Components = color1.cgColor.components ?? [0, 0, 0]
+        let red1 = color1Components[0]
+        let green1 = color1Components[1]
+        let blue1 = color1Components[2]
         
-        let darkComponents = dark.cgColor.components ?? [0, 0, 0]
-        let darkRed = darkComponents[0]
-        let darkGreen = darkComponents[1]
-        let darkBlue = darkComponents[2]
+        let color2Components = color2.cgColor.components ?? [0, 0, 0]
+        let red2 = color2Components[0]
+        let green2 = color2Components[1]
+        let blue2 = color2Components[2]
         
-        let red = ratio * darkRed + lightRatio * lightRed
-        let green = ratio * darkGreen + lightRatio * lightGreen
-        let blue = ratio * darkBlue + lightRatio * lightBlue
-        
-        return MaterialColor.PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
-    }
-    
-    public static func color(_ lightHex: UInt32, _ darkHex: UInt32, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
-        let ratio = max(0.0, min(1.0, ratio))
-        let lightRatio = 1.0 - ratio
-        
-        let lightRed = CGFloat((lightHex & 0xFF0000) >> 16) / 255.0
-        let lightGreen = CGFloat((lightHex & 0x00FF00) >> 8) / 255.0
-        let lightBlue = CGFloat(lightHex & 0x0000FF) / 255.0
-        
-        let darkRed = CGFloat((darkHex & 0xFF0000) >> 16) / 255.0
-        let darkGreen = CGFloat((darkHex & 0x00FF00) >> 8) / 255.0
-        let darkBlue = CGFloat(darkHex & 0x0000FF) / 255.0
-        
-        let red = ratio * darkRed + lightRatio * lightRed
-        let green = ratio * darkGreen + lightRatio * lightGreen
-        let blue = ratio * darkBlue + lightRatio * lightBlue
+        let red = ratio1 * red1 + ratio2 * red2
+        let green = ratio1 * green1 + ratio2 * green2
+        let blue = ratio1 * blue1 + ratio2 * blue2
         
         return MaterialColor.PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public static func color(_ tint: Tint, _ level: Int = 500, palette: Palette = .tailwind) -> MaterialColor.PlatformColor {
+    public static func color(hex1: UInt32, hex2: UInt32, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
+        let ratio2 = max(0.0, min(1.0, ratio))
+        let ratio1 = 1.0 - ratio2
+        
+        let red1 = CGFloat((hex1 & 0xFF0000) >> 16) / 255.0
+        let green1 = CGFloat((hex1 & 0x00FF00) >> 8) / 255.0
+        let blue1 = CGFloat(hex1 & 0x0000FF) / 255.0
+        
+        let red2 = CGFloat((hex2 & 0xFF0000) >> 16) / 255.0
+        let green2 = CGFloat((hex2 & 0x00FF00) >> 8) / 255.0
+        let blue2 = CGFloat(hex2 & 0x0000FF) / 255.0
+        
+        let red = ratio1 * red1 + ratio2 * red2
+        let green = ratio1 * green1 + ratio2 * green2
+        let blue = ratio1 * blue1 + ratio2 * blue2
+        
+        return MaterialColor.PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
+    public static func color(tint: MaterialColor.Tint, level: Int = 500, palette: MaterialColor.Palette = .tailwind) -> MaterialColor.PlatformColor {
         if level < 0 || level > 1000 {
             fatalError("Invalid color level \(level)")
         }
@@ -110,7 +110,7 @@ public enum MaterialColor {
                 lightHex = hexValues[10]
                 ratio = (remainder - 50) / 50
             }
-            return color(lightHex, darkHex, ratio: ratio)
+            return color(hex1: lightHex, hex2: darkHex, ratio: ratio)
         }
     }
     
