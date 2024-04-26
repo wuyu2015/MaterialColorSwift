@@ -20,6 +20,27 @@ public enum MaterialColor {
         return PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
+    public static func color(_ light: MaterialColor.PlatformColor, _ dark: MaterialColor.PlatformColor, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
+        let ratio = max(0.0, min(1.0, ratio))
+        let lightRatio = 1.0 - ratio
+        
+        let lightComponents = light.cgColor.components ?? [0, 0, 0]
+        let lightRed = lightComponents[0]
+        let lightGreen = lightComponents[1]
+        let lightBlue = lightComponents[2]
+        
+        let darkComponents = dark.cgColor.components ?? [0, 0, 0]
+        let darkRed = darkComponents[0]
+        let darkGreen = darkComponents[1]
+        let darkBlue = darkComponents[2]
+        
+        let red = ratio * darkRed + lightRatio * lightRed
+        let green = ratio * darkGreen + lightRatio * lightGreen
+        let blue = ratio * darkBlue + lightRatio * lightBlue
+        
+        return MaterialColor.PlatformColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
     public static func color(_ lightHex: UInt32, _ darkHex: UInt32, ratio: CGFloat = 0.5, alpha: CGFloat = 1.0) -> MaterialColor.PlatformColor {
         let ratio = max(0.0, min(1.0, ratio))
         let lightRatio = 1.0 - ratio
